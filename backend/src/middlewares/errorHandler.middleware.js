@@ -1,6 +1,7 @@
 
 export const errorHandler = (err, req, res, next) => {
     try {
+        console.log(Object(err))
         const message = err.message
         const code = err.code || 500
 

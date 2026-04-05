@@ -1,9 +1,9 @@
 import JWT from "jsonwebtoken";
-import { RFRESH_SECRET } from "../config/env.js";
+import { REFRESH_SECRET } from "../config/env.js";
 
 export const createRefreshToken = (data) => {
     try {
-        const token = JWT.sign(data, RFRESH_SECRET)
+        const token = JWT.sign(data, REFRESH_SECRET)
 
         return token
     } catch (e) {
