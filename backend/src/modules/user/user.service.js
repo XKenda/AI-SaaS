@@ -1,3 +1,4 @@
+import Token from "./token.model.js"
 import User from "./user.model.js"
 
 
@@ -18,6 +19,15 @@ export const createNewUser = async({fileUrl, username, email, age, password, tit
         if(user) return true
 
         return false
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
+
+export const deleteToken = async (token) => {
+    try {
+        const deletedCount = (await Token.deleteOne({token})).deletedCount;
+        return deletedCount;
     } catch (e) {
         throw new Error(e.message)
     }

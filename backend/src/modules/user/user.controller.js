@@ -39,9 +39,6 @@ export const registerController = async (req, res, next) => {
     }
 }
 
-
-
-
 export const logInController = async (req, res, next) => {
     try {
         const {email, password} = req.body
@@ -69,3 +66,12 @@ export const logInController = async (req, res, next) => {
     }
 }
 
+export const logOutController = async (req, res, next) => {
+    try {
+        const token = req.token;
+
+        
+    } catch (e) {
+        next(e)
+    }
+}
