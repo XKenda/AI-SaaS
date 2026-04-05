@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { createRefreshToken } from "../../utils/createaRefreshToken.js";
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary.js";
-import { addTokenToDB, createNewUser, deleteToken, getUser } from "./user.service.js";
+import { addTokenToDB, createNewUser, deleteAllTokens, deleteToken, getUser } from "./user.service.js";
 import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
@@ -83,6 +83,21 @@ export const logOutController = async (req, res, next) => {
             sameSite: 'strict',
             maxAge: 1000 * 60 * 60 * 24 * 15
         })
+        res.status(200).json({success: true})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export const logoutAllController = async (req, res, next) => {
+    try {
+        const user = req.user
+
+        const deleteded = deleteAllTokens(user._id)
+
+        if(deleteded)
+            res.status(404).json({success: false})
+
         res.status(200).json({success: true})
     } catch (e) {
         next(e)

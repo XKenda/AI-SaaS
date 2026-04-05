@@ -1,5 +1,5 @@
 import express from "express"
-import { logInController, logOutController, registerController } from "./user.controller.js";
+import { logInController, logoutAllController, logOutController, registerController } from "./user.controller.js";
 import multer from "multer";
 import { auth } from "../../middlewares/auth.middleware.js";
 
@@ -9,6 +9,7 @@ const userRouter = express.Router()
 
 userRouter.post('/register', update.single("image"), registerController)
 userRouter.post('/login', logInController)
-userRouter.delete('/logout', auth, logOutController)
+userRouter.delete('/logout', auth, logOutController);
+userRouter.delete('/logoutall', auth, logoutAllController)
 
 export default userRouter;
