@@ -25,6 +25,10 @@ const userSchema = new Schema({
         required: [true, 'Password is required'],
         minLength: 8,
     },
+    age: {
+        type: Number,
+        default: 18
+    },
     title: {
         type: String,
         minLength: 10
