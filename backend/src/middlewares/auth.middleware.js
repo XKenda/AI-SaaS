@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
-import { REFRESH_SECRET } from "../config/env"
-import User from "../modules/user/user.model"
-import Token from "../modules/user/token.model"
+import { REFRESH_SECRET } from "../config/env.js"
+import User from "../modules/user/user.model.js"
+import Token from "../modules/user/token.model.js"
 
 
 export const auth = async (req, res, next) => {
@@ -22,7 +22,7 @@ export const auth = async (req, res, next) => {
             return res.status(401).send("Unauthorized");
         }
 
-        const userId = jwt.verify(token, REFRESH_SECRET);
+        const userId = jwt.verify(token, REFRESH_SECRET).userId;
 
         const user = await User.findOne({_id: userId});
 
