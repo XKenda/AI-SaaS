@@ -3,6 +3,7 @@ import { config } from "dotenv"
 config({path: `.env.${process.env.NODE_ENV? 'production' : 'development'}.local`})
 
 export const {
-    PORT
-
+    PORT,
+    DB_URL,
+    RFRESH_SECRET
 } = process.env
