@@ -103,3 +103,14 @@ export const logoutAllController = async (req, res, next) => {
         next(e)
     }
 }
+
+export const getUserController = (req, res, next)=>{
+    try {
+        
+        const  {profileImgUrl, username, email, age, employed, title} = req.user
+
+        res.status(200).json({success: true, data: {profileImgUrl, username, email, age, employed, title}})
+    } catch (e) {
+        next(e)
+    }
+}
