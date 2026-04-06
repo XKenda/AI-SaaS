@@ -43,3 +43,26 @@ export const deleteToken = async (token) => {
         throw new Error(e.message)
     }
 }
+
+export const deleteAllTokens = async (userId) => {
+    try {
+        const deletedCount = (await Token.deleteMany({userId})).deletedCount
+
+        if(deletedCount)
+            return true
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
+
+export const updateUserService = async (userId, updated) => {
+    try {
+        const user = await User.findOneAndUpdate({_id: userId}, updated, {
+            returnDocument: "after"
+        })
+
+        return user
+    } catch (e) {
+        next(e)
+    }
+}
