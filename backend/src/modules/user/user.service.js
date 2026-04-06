@@ -54,3 +54,15 @@ export const deleteAllTokens = async (userId) => {
         throw new Error(e.message)
     }
 }
+
+export const updateUserService = async (userId, updated) => {
+    try {
+        const user = await User.findOneAndUpdate({_id: userId}, updated, {
+            returnDocument: "after"
+        })
+
+        return user
+    } catch (e) {
+        next(e)
+    }
+}

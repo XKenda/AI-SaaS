@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { createRefreshToken } from "../../utils/createaRefreshToken.js";
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary.js";
-import { addTokenToDB, createNewUser, deleteAllTokens, deleteToken, getUser } from "./user.service.js";
+import { addTokenToDB, createNewUser, deleteAllTokens, deleteToken, getUser, updateUserService } from "./user.service.js";
 import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
@@ -110,6 +110,19 @@ export const getUserController = (req, res, next)=>{
         const  {profileImgUrl, username, email, age, employed, title} = req.user
 
         res.status(200).json({success: true, data: {profileImgUrl, username, email, age, employed, title}})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export const updateUserController = async (req, res, next) => {
+    try {
+        const userId = req.user._id
+        const updated = req.body
+
+        const newUser = await updateUserService(userId, updated)
+
+        res.status(200).json({success: true, data: newUser})
     } catch (e) {
         next(e)
     }
