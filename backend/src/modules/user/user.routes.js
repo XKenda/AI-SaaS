@@ -13,5 +13,6 @@ userRouter.delete('/logout', auth, logOutController);
 userRouter.delete('/logoutall', auth, logoutAllController)
 userRouter.get('/me', auth, getUserController)
 userRouter.patch('/update', auth, updateUserController)
+userRouter.patch('/change-password', auth, )
 
 export default userRouter;

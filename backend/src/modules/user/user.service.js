@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs"
 import Token from "./token.model.js"
 import User from "./user.model.js"
 
@@ -13,6 +14,7 @@ export const getUser = async (email) => {
 }
 
 export const addTokenToDB = async (refreshToken, userId) =>{
+
     try {
         const token = await Token.create({token: refreshToken, userId})
 
@@ -63,6 +65,24 @@ export const updateUserService = async (userId, updated) => {
 
         return user
     } catch (e) {
-        next(e)
+        throw new Error(e.message)
+    }
+}
+
+export const changePasswordService = async (userId, oldPassword, newPassword) => {
+    try {
+
+        const user = await User.findOne({_id: userId});
+        
+        const passwordIsMatch = bcrypt.compare(oldPassword, user.password)
+
+        if(!passwordIsMatch) return false
+
+        user.password = newPassword;
+        await user.save()
+        return true
+        
+    } catch (e) {
+        throw new Error(e.message)
     }
 }
