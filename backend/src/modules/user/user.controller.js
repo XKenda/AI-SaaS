@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { createRefreshToken } from "../../utils/createaRefreshToken.js";
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary.js";
-import { addTokenToDB, changePasswordService, createNewUser, deleteAllTokens, deleteToken, getUser, updateUserService } from "./user.service.js";
+import { addTokenToDB, changePasswordService, createNewUser, deleteAllTokens, deleteToken, deleteUserSevice, getUser, updateUserService } from "./user.service.js";
 import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
@@ -141,5 +141,19 @@ export const changePasswordController = async (req, res, next) => {
 
     } catch (e) {
         next(e)
+    }
+}
+
+export const deleteUser = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+
+        const deleted = await deleteUserSevice(userId);
+
+        if(!deleted) return res.status(404).json({success: false});
+
+        res.status(200).json({success: true});
+    } catch (e) {
+        next(e);
     }
 }

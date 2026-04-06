@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs"
 import Token from "./token.model.js"
 import User from "./user.model.js"
+import { abortTransaction, commitTransaction, startTransaction } from "../../utils/session.js"
 
 
 export const getUser = async (email) => {
@@ -83,6 +84,23 @@ export const changePasswordService = async (userId, oldPassword, newPassword) =>
         return true
         
     } catch (e) {
+        throw new Error(e.message)
+    }
+}
+
+export const deleteUserSevice = async (userId) => {
+    const session = await startTransaction()
+    try{
+        const UserDeleted = await User.findOneAndDelete({_id: userId}, {session})
+
+        const tokensDeleted = await Token.deleteMany({userId}, {session})
+
+        await commitTransaction(session)
+
+        return true
+
+    } catch (e) {
+        await abortTransaction(session)
         throw new Error(e.message)
     }
 }
