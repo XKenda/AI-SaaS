@@ -24,3 +24,12 @@
   background-color: white;
   color: black;
 }
+
+
+.external-signup-links button {
+  @apply flex flex-col md:flex-row justify-evenly cursor-pointer border rounded-2xl p-2 items-center gap-1.5
+}
+
+.external-signup-links button img {
+  @apply w-6 h-6
+}
