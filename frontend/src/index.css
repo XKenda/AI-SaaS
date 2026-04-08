@@ -6,23 +6,24 @@
 }
 
 .input-field label {
-  @apply dark:bg-black absolute left-5 top-3 duration-300 px-1 pointer-events-none text-gray-500 shadow shadow-white
+  @apply dark:bg-black absolute left-5 top-3 duration-300 px-1 pointer-events-none text-gray-500 shadow shadow-white capitalize
 }
 
-.input-field input {
+.input-field input,
+.input-field button {
   @apply border px-4 py-3 rounded-2xl w-full
 }
 
 .input-field:focus-within label {
   top: -12px;
   background-color: white;
-  color: black;
+  color: rgb(0, 4, 255);
 }
 
-.input-field input.written label {
+.input-field.written label {
   top: -12px;
   background-color: white;
-  color: black;
+  color: rgb(0, 4, 255);
 }
 
 

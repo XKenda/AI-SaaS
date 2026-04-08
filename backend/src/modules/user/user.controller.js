@@ -15,15 +15,14 @@ export const registerController = async (req, res, next) => {
                 title,
                 employed} = req.body
 
+
         if(file) {
             fileUrl = await uploadImageToCloudinary(file);
         }
         const emailIsExist = await getUser(email);
 
         if(emailIsExist) return res.status(404).json({success: false, message: "email is already taken"})
-
         const hashedPassword = await bcrypt.hash(password, 8)
-
         const created = await createNewUser({ fileUrl, 
                                         username, 
                                         email, 
@@ -133,7 +132,7 @@ export const changePasswordController = async (req, res, next) => {
         const userId = req.user._id
         const {oldPassword, newPassword} = req.body
 
-        const passwordChanged = changePasswordService
+        const passwordChanged = changePasswordService(userId, oldPassword, newPassword)
 
         if(!passwordChanged) return res.status(404).json({success: false})
 
