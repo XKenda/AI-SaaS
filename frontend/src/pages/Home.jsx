@@ -1,11 +1,12 @@
 
-const Home = ()=>{
-    
+const Home = () => {
+
 
 
     return (
         <div className="home-con w-full h-lvh bg-amber-50">
-        </div> 
+
+        </div>
     )
 }
 
