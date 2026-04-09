@@ -19,3 +19,13 @@ export const getAllJobService = async (userId) => {
         throw new Error(e.message)
     }
 }
+
+export const updateJobService = async (userId, jobId, update) => {
+    try {
+        const job = await Job.findOneAndUpdate({_id: jobId, userId}, update, {new: true})
+
+        return job
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
