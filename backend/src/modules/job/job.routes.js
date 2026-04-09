@@ -1,9 +1,10 @@
 import express from "express";
 import { auth } from "../../middlewares/auth.middleware.js";
-import { addJobContoller } from "./job.controller.js";
+import { addJobContoller, getAllJobController } from "./job.controller.js";
 
 const jobRouter = express.Router();
 
 jobRouter.post('/', auth, addJobContoller)
+jobRouter.get('/', auth, getAllJobController)
 
 export default jobRouter;

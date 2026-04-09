@@ -9,3 +9,13 @@ export const addJobService = async (userId, data) => {
         throw new Error(e.message)
     }
 }
+
+export const getAllJobService = async (userId) => {
+    try {
+        const allJobs = await Job.find({userId})
+
+        return allJobs
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
