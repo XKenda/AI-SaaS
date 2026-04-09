@@ -1,4 +1,4 @@
-import { addJobService, getAllJobService, updateJobService } from "./job.service.js"
+import { addJobService, deleteJobService, getAllJobService, updateJobService } from "./job.service.js"
 
 
 export const addJobContoller = async (req, res, next) => {
@@ -43,6 +43,20 @@ export const updateJobContoller = async (req, res, next) => {
         if(!job) return res.status(404).json({success: false});
 
         res.status(200).json({success: true, data: job})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export const deleteJobContoller = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const {id: jobId} = req.params;
+
+        const job = await deleteJobService(userId, jobId);
+
+        if(!job) return res.status(404).json({success: false});
+        res.status(200).json({success: true, data: job});
     } catch (e) {
         next(e)
     }

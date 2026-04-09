@@ -29,3 +29,12 @@ export const updateJobService = async (userId, jobId, update) => {
         throw new Error(e.message)
     }
 }
+
+export const deleteJobService = async (userId, jobId) => {
+    try {
+        const jobDeleted = await Job.findOneAndDelete({_id: jobId, userId}, {returnDocument: "after"});
+        return jobDeleted;
+    } catch (e) {
+        throw new Error(e)
+    }
+}
