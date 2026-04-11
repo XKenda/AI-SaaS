@@ -1,7 +1,7 @@
 import { addJobService, deleteJobService, getAllJobService, updateJobService } from "./job.service.js"
 
 
-export const addJobContoller = async (req, res, next) => {
+export const addJobController = async (req, res, next) => {
     try {
         const userId = req.user._id
         const data = req.body
@@ -19,8 +19,9 @@ export const addJobContoller = async (req, res, next) => {
 export const getAllJobController = async (req, res, next) => {
     try {
         const userId = req.user._id
+        const {query} = req.body
 
-        const allJobs = await getAllJobService(userId);
+        const allJobs = await getAllJobService(userId, query.toLocaleLowerCase());
 
         if(!allJobs) return res.status(404).json({success: false})
 
@@ -30,7 +31,7 @@ export const getAllJobController = async (req, res, next) => {
     }
 };
 
-export const updateJobContoller = async (req, res, next) => {
+export const updateJobController = async (req, res, next) => {
     try {
         const userId = req.user._id;
         const {id: jobId} = req.params
@@ -48,7 +49,7 @@ export const updateJobContoller = async (req, res, next) => {
     }
 }
 
-export const deleteJobContoller = async (req, res, next) => {
+export const deleteJobController = async (req, res, next) => {
     try {
         const userId = req.user._id;
         const {id: jobId} = req.params;
