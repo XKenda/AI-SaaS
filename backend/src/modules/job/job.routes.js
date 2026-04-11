@@ -1,9 +1,15 @@
 import express from "express";
 import { auth } from "../../middlewares/auth.middleware.js";
-import { addJobContoller } from "./job.controller.js";
+import { addJobController, 
+        deleteJobController, 
+        getAllJobController, 
+        updateJobController } from "./job.controller.js";
 
 const jobRouter = express.Router();
 
-jobRouter.post('/', auth, addJobContoller)
+jobRouter.post('/', auth, addJobController)
+jobRouter.get('/', auth, getAllJobController)
+jobRouter.patch('/:id', auth, updateJobController)
+jobRouter.delete('/:id', auth, deleteJobController)
 
 export default jobRouter;

@@ -1,7 +1,7 @@
-import { addJobService } from "./job.service.js"
+import { addJobService, deleteJobService, getAllJobService, updateJobService } from "./job.service.js"
 
 
-export const addJobContoller = async (req, res, next) => {
+export const addJobController = async (req, res, next) => {
     try {
         const userId = req.user._id
         const data = req.body
@@ -11,6 +11,53 @@ export const addJobContoller = async (req, res, next) => {
         if(!newJob) return res.status(404).json({success: false}) 
 
         res.status(200).json({success: true, data: newJob})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export const getAllJobController = async (req, res, next) => {
+    try {
+        const userId = req.user._id
+        const {query} = req.body
+
+        const allJobs = await getAllJobService(userId, query.toLocaleLowerCase());
+
+        if(!allJobs) return res.status(404).json({success: false})
+
+        res.status(200).json({success: true, count: allJobs.length, data: allJobs})
+    } catch (e) {
+        next(e)
+    }
+};
+
+export const updateJobController = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const {id: jobId} = req.params
+        const update = req.body
+
+        console.log(jobId) 
+        
+        const job = await updateJobService(userId, jobId, update)
+
+        if(!job) return res.status(404).json({success: false});
+
+        res.status(200).json({success: true, data: job})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export const deleteJobController = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const {id: jobId} = req.params;
+
+        const job = await deleteJobService(userId, jobId);
+
+        if(!job) return res.status(404).json({success: false});
+        res.status(200).json({success: true, data: job});
     } catch (e) {
         next(e)
     }

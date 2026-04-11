@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { IoEye, IoEyeOff  } from "react-icons/io5";
 import { RegisterAPI } from "../../API/userApi";
 import Loading from "../components/loading";
+import { motion } from "framer-motion";
 
 const Register = () => {
     const [show, setShow] = useState(false)
@@ -67,15 +68,15 @@ const Register = () => {
     }, [])
 
     return (
-            <div className="register-con flex flex-col md:flex-row-reverse ">
-             <div className={"register-info flex-1 bg-blue-700 text-white rounded-b-2xl md:rounded-l-2xl p-10 flex flex-col justify-between duration-1000 z-10 " + (show? "translate-x-0 opacity-100" : "-translate-x-50 opacity-30") }>
+        <div className="register-con flex flex-col md:flex-row-reverse ">
+             <motion.div initial={{x: -100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}} className={"register-info flex-1 bg-blue-700 text-white rounded-b-2xl md:rounded-l-2xl p-10 flex flex-col justify-between duration-1000 z-10 " }>
                 <h3 className="text-2xl w-6/12 mb-20">Your all in one website for job tracking</h3>
                 <div className="register-info-details flex flex-col">
                     <p className="details-title">Trusted by leading developers</p>
                     <p className="trusted-people mt-10">Mahmoud Ibrahim (ME) :) </p>
                 </div>
-            </div>
-            <div className={"register flex-1 flex flex-col p-10 gap-5 duration-1000 " + (show? "translate-x-0 opacity-100" : "translate-x-50 opacity-30")}>
+            </motion.div>
+            <motion.div initial={{x: 100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}} className={"register flex-1 flex flex-col p-10 gap-5 duration-1000 " + (show? "translate-x-0 opacity-100" : "translate-x-50 opacity-30")}>
                 <div className="title-con mb-5">
                     <h2 className="create-accoutn text-2xl text-center">Create Account</h2>
                     <h2 className="welcome-message text-[20px] text-center text-gray-500">Welcome to Your Job Tracker webstie </h2>
@@ -150,7 +151,7 @@ const Register = () => {
                     
                 </div>
 
-            </div>
+            </motion.div>
         </div>
     )
 } 

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff  } from "react-icons/io5";
 import Loading from "../components/loading";
 import { LogInAPI } from "../../API/userApi";
+import { motion } from "framer-motion";
+
 
 
 const Login = () => {
@@ -45,14 +47,14 @@ const Login = () => {
 
     return (
             <div className=" login-con flex flex-col-reverse md:flex-row ">
-                <div className={"login-info flex-1 bg-blue-700 text-white rounded-t-2xl md:rounded-r-2xl p-10 flex flex-col h-dvh justify-between duration-1000 z-10 " + (show? "translate-x-0 opacity-100" : "translate-x-50 opacity-30")}>
+                <motion.div initial={{x: 100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}} className={"login-info flex-1 bg-blue-700 text-white rounded-t-2xl md:rounded-r-2xl p-10 flex flex-col h-dvh justify-between duration-1000 z-10 "}>
                 <h3 className="text-2xl w-6/12 mb-20">Your all in one website for job tracking</h3>
                 <div className="login-info-details flex flex-col">
                     <p className="details-title">Trusted by leading developers</p>
                     <p className="trusted-people mt-10">Mahmoud Ibrahim (ME) :) </p>
                 </div>
-            </div>
-            <div className={"login flex-1 flex flex-col p-10 gap-5 duration-1000 " + (show? "translate-x-0 opacity-100" : "-translate-x-50 opacity-30")}>
+            </motion.div>
+            <motion.div initial={{x: -100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}}  className={"login flex-1 flex flex-col p-10 gap-5 duration-1000 "}>
                 <div className="title-con mb-5">
                     <h2 className="log-in text-2xl text-center">Log In</h2>
                     <h2 className="welcome-message text-[20px] text-center text-gray-500">Welcome to Your Job Tracker webstie </h2>
@@ -89,7 +91,7 @@ const Login = () => {
                     <button onClick={() => navigate("/not-feature")} > <img src="/facebook.png" alt="" />Sign Up with Facebook</button>
                     <button onClick={() => navigate("/not-feature")}> <img src="/linkedin.png" alt="" />Sign Up with Linkedin</button>    
                 </div>
-            </div>
+            </motion.div>
             </div>
     )
 } 
