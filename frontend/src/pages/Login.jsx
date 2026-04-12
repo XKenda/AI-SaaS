@@ -82,7 +82,7 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="login-btn col-span-2 text-center">
-                        <p className="login-url">Don't have an account? <a className="text-blue-700 cursor-pointer" onClick={() => navigate('/register')}>register</a></p>
+                        <p className="login-url">Don't have an account? <a className="text-blue-700 cursor-pointer" onClick={() => navigate('/auth/register')}>register</a></p>
                     </div>
                 </form>
                 <hr />
