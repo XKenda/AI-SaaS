@@ -76,6 +76,7 @@ const Register = () => {
                     <p className="trusted-people mt-10">Mahmoud Ibrahim (ME) :) </p>
                 </div>
             </motion.div>
+
             <motion.div initial={{x: 100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}} className={"register flex-1 flex flex-col p-10 gap-5 duration-1000 " + (show? "translate-x-0 opacity-100" : "translate-x-50 opacity-30")}>
                 <div className="title-con mb-5">
                     <h2 className="create-accoutn text-2xl text-center">Create Account</h2>
@@ -140,7 +141,7 @@ const Register = () => {
                         </button>
                     </div>
                     <div className="login-btn col-span-2 text-center">
-                        <p className="login-url">Already have an Account? <a className="text-blue-700 cursor-pointer" onClick={() => navigate('/login')}>Login</a></p>
+                        <p className="login-url">Already have an Account? <a className="text-blue-700 cursor-pointer" onClick={() => navigate('/auth/login')}>Login</a></p>
                     </div>
                 </form>
                 <hr />
