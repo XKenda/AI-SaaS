@@ -38,11 +38,16 @@
   @apply w-6 h-6
 }
 
-/* .sidebar-con {
+.sidebar-con {
   transform: translateX(-80%);
+
   transition: 0.5s;
 }
 
 .sidebar-con:hover {
   transform: translateX(0);
-} */
+}
+
+#title:focus {
+  outline: none;
+}
