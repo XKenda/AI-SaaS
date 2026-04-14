@@ -65,6 +65,10 @@
   @apply flex justify-between py-2
 }
 
+.number-of-jobs p {
+  @apply flex justify-between py-2
+}
+
 .home-con > div {
   @apply bg-secondary border border-gray-400 rounded-2xl
 }

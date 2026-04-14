@@ -10,8 +10,7 @@ const Header = () => {
     const user = useContext({...UserContext})
     const {profileImgUrl, username, title, employed} = user.user;
 
-    useEffect(()=>{
-        document.getElementById("title").addEventListener("keydown", async (event) => {
+    const HandleTitleSubmit = async (event) => {
             if(event.key == "Enter") {
                 event.preventDefault();
                 const newData = titleInputRef.current.value;
@@ -19,12 +18,31 @@ const Header = () => {
                 user.setUser(prev => ({...prev, title: newData}))
                 await updateUser({title: newData})
             }
-        })
+        }
 
-        return document.getElementById("title").removeEventListener("keydown", (event) => {
-            console.log(event)
-        })
-    }, [])
+
+    // useEffect(()=>{
+
+    //         titleInputRef.current.addEventListener("keydown", async (event) => {
+    //         if(event.key == "Enter") {
+    //             event.preventDefault();
+    //             const newData = titleInputRef.current.value;
+    //             console.log(newData)
+    //             user.setUser(prev => ({...prev, title: newData}))
+    //             await updateUser({title: newData})
+    //         }
+    //     })
+
+    //     return titleInputRef.current.removeEventListener("keydown", async (event) => {
+    //         if(event.key == "Enter") {
+    //             event.preventDefault();
+    //             const newData = titleInputRef.current.value;
+    //             console.log(newData)
+    //             user.setUser(prev => ({...prev, title: newData}))
+    //             await updateUser({title: newData})
+    //         }
+    //     })
+    // }, [])
 
 
     return (
@@ -37,7 +55,7 @@ const Header = () => {
 
                 <h2 className="username capitalize text-2xl">{username}</h2>
                 <p className="title">{title? <span className="title-span text-gray-500">{title}</span> : 
-                    <input ref={titleInputRef}  type="text" name="add title" id="title" placeholder="Click to add title" />
+                    <input ref={titleInputRef} onKeyDown={HandleTitleSubmit}  type="text" name="add title" id="title" placeholder="Click to add title" />
                 }</p>
                 </div>
                 <div className="status-con">    
