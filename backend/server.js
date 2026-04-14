@@ -4,5 +4,5 @@ import app from "./src/app.js";
 
 
 app.listen(PORT, ()=>{
-    console.log("app listened")
+    console.log("app listened");
 })

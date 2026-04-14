@@ -1,5 +1,12 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+@tailwind utilities;
+
+@theme {
+        --color-primary: #f9fafb;
+        --color-secondary: #e5e7eb;
+        --color-accent: #2563eb;
+}
 
 .input-field {
   @apply flex relative

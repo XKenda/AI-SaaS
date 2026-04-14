@@ -7,47 +7,53 @@ import NotFeature from "./pages/NotFeature"
 import PageNotFound from "./pages/PageNotFound"
 import { useState, useEffect, createContext } from "react"
 import { getUser } from "../API/userApi"
+import { getJobs } from "../API/jobApi"
 
 export const UserContext = createContext(null)
+export const JobContext = createContext(null)
 
 function App() {
-  const [user , setUser] = useState(null)
+  const [user , setUser] = useState({})
+  const [jobs, setJobs] = useState({});
 
 
   useEffect(()=>{
     async function HandleGetUSer() {
-      
-      
-      try {
+
         await getUser().then((res)=>{
           if(res.data.success) setUser(res.data.data)
-          console.log(res.data.data)
-          console.log(user)
+
         }).catch((err)=>{
           console.log(err)
         })
-      } catch (e) {
-        console.log(e)
-      }
+
+        await getJobs().then((res) => {
+          if(res.data.success) setJobs(res.data.data)
+
+        }).catch((err) => {
+          console.log(err)
+        })
+
     }
+
     HandleGetUSer()
   }, []);
 
-
-
   return (
-    <UserContext.Provider value={user}>
-      <Router>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/not-feature" element={<NotFeature />} />
-          <Route path="/auth">
-            <Route path="register" element={<Register />}  />
-            <Route path="login" element={<Login />} />
-          </Route>
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-      </Router>
+    <UserContext.Provider value={{user, setUser}}>
+      <JobContext.Provider value={{jobs, setJobs}}>
+        <Router>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/not-feature" element={<NotFeature />} />
+            <Route path="/auth">
+              <Route path="register" element={<Register />}  />
+              <Route path="login" element={<Login />} />
+            </Route>
+            <Route path="/*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
+      </JobContext.Provider>
     </UserContext.Provider>
   )
 }

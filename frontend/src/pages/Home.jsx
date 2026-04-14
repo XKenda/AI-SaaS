@@ -1,15 +1,22 @@
-import { useContext } from "react";
-import { UserContext } from "../App";
+import { useContext, useEffect, useState } from "react";
+import { JobContext, UserContext } from "../App";
 import Header from "../components/Header";
+import Loading from "../components/loading";
 
 const Home = () => {
-    const user = useContext({...UserContext})
 
 
     return (
-        <div className="home-con w-full h-lvh bg-amber-50 p-20">
-            <Header user={user} />
-            
+        <div className="home-con w-full h-lvh bg-primary p-20 grid grid-cols-3 grid-rows-3">
+            <div className="header col-span-3 row-span-1">
+                {
+                   <Header />
+                }
+            </div>
+            <div className="num-of-jobs">
+
+            </div>
+
         </div>
     )
 }
