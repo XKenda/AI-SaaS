@@ -1,11 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss' layer(utilities);
+@import 'tailwindcss/utilities' layer(utilities);
+
 @custom-variant dark (&:where(.dark, .dark *));
-@tailwind utilities;
 
 @theme {
-        --color-primary: #f9fafb;
-        --color-secondary: #e5e7eb;
-        --color-accent: #2563eb;
+  --color-primary: #f9fafb;
+  --color-secondary: #e5e7eb;
+  --color-accent: #2563eb;
 }
 
 .input-field {
@@ -57,4 +58,13 @@
 
 #title:focus {
   outline: none;
+}
+
+
+.number-con p {
+  @apply flex justify-between py-2
+}
+
+.home-con > div {
+  @apply bg-secondary border border-gray-400 rounded-2xl
 }

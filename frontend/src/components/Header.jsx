@@ -28,11 +28,11 @@ const Header = () => {
 
 
     return (
-        <div className="header-con bg-secoundry flex rounded-2xl p-10">
+        <div className="header-con flex flex-col md:flex-row justify-center items-center md:justify-start gap-4 rounded-2xl px-2 md:px-10 py-10">
             <div className="img-con w-50 h-40 rounded-full overflow-hidden flex justify-center">
                 <img src={profileImgUrl? profileImgUrl: null} alt={username} className="user-img" />
             </div>
-            <div className="details-con flex flex-col justify-between px-5 py-2">
+            <div className="details-con  flex flex-col justify-between px-5 py-2">
                 <div className="title-con">
 
                 <h2 className="username capitalize text-2xl">{username}</h2>
@@ -41,7 +41,7 @@ const Header = () => {
                 }</p>
                 </div>
                 <div className="status-con">    
-                <p className="current-status">{employed? "employed" : "unemployed"}</p>
+                <p className="current-status mt-20">{employed? "employed" : "unemployed"}</p>
                 </div>
             </div>
         </div>

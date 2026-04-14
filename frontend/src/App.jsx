@@ -14,7 +14,7 @@ export const JobContext = createContext(null)
 
 function App() {
   const [user , setUser] = useState({})
-  const [jobs, setJobs] = useState({});
+  const [data, setData] = useState({});
 
 
   useEffect(()=>{
@@ -28,8 +28,8 @@ function App() {
         })
 
         await getJobs().then((res) => {
-          if(res.data.success) setJobs(res.data.data)
-
+          if(res.data.success) setData(res.data.data)
+            console.log(res.data.data)
         }).catch((err) => {
           console.log(err)
         })
@@ -41,7 +41,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{user, setUser}}>
-      <JobContext.Provider value={{jobs, setJobs}}>
+      <JobContext.Provider value={{data, setData}}>
         <Router>
           <Routes>
             <Route path="/home" element={<Home />} />
