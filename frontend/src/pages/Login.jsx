@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 
 
 const Login = () => {
-    const [show, setShow] = useState(false)
     const [passwordIsShown, setPasswordIsShown] = useState(false)
     const [isLoading, setIsloading] = useState(false)
     const navigate = useNavigate()
@@ -40,11 +39,7 @@ const Login = () => {
             setIsloading(false)
         }
     }
-
-    useEffect(()=>{
-        setShow(true)
-    }, [])
-
+    
     return (
             <div className=" login-con flex flex-col-reverse md:flex-row ">
                 <motion.div initial={{x: 100, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, ease: "linear", opacity: {duration: 2}}} className={"login-info flex-1 bg-blue-700 text-white rounded-t-2xl md:rounded-r-2xl p-10 flex flex-col h-dvh justify-between duration-1000 z-10 "}>

@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound"
 import { useState, useEffect, createContext } from "react"
 import { getUser } from "../API/userApi"
 import { getJobs } from "../API/jobApi"
+import CreateJob from "./pages/CreateJob"
 
 export const UserContext = createContext(null)
 export const JobContext = createContext(null)
@@ -45,6 +46,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/home" element={<Home />} />
+            <Route path="/create/job" element={<CreateJob />} />
             <Route path="/not-feature" element={<NotFeature />} />
             <Route path="/auth">
               <Route path="register" element={<Register />}  />
