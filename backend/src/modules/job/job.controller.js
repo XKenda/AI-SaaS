@@ -21,11 +21,12 @@ export const getAllJobController = async (req, res, next) => {
         const userId = req.user._id
         const {query} = req.body
 
+
         const allJobs = await getAllJobService(userId, query.toLocaleLowerCase());
 
         if(!allJobs) return res.status(404).json({success: false})
 
-        res.status(200).json({success: true, count: allJobs.length, data: allJobs})
+        res.status(200).json({success: true, data: {count: allJobs.length, jobs: allJobs}})
     } catch (e) {
         next(e)
     }

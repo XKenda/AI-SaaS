@@ -7,8 +7,8 @@ import { addJobController,
 
 const jobRouter = express.Router();
 
-jobRouter.post('/', auth, addJobController)
-jobRouter.get('/', auth, getAllJobController)
+jobRouter.post('/', auth, addJobController) 
+jobRouter.post('/get', auth, getAllJobController)
 jobRouter.patch('/:id', auth, updateJobController)
 jobRouter.delete('/:id', auth, deleteJobController)
 

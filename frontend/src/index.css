@@ -1,5 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss' layer(utilities);
+@import 'tailwindcss/utilities' layer(utilities);
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #f9fafb;
+  --color-secondary: #dfdde7;
+  --color-accent: #2563eb;
+}
+h {
+  background-color: #dfdde7;
+}
 
 .input-field {
   @apply flex relative
@@ -26,6 +37,9 @@
   color: rgb(0, 4, 255);
 }
 
+.btn {
+  @apply cursor-pointer
+}
 
 .external-signup-links button {
   @apply flex flex-col md:flex-row justify-evenly cursor-pointer border rounded-2xl p-2 items-center gap-1.5
@@ -33,4 +47,39 @@
 
 .external-signup-links button img {
   @apply w-6 h-6
+}
+
+.sidebar-con {
+  transform: translateX(-80%);
+
+  transition: 0.5s;
+}
+
+.sidebar-con:hover {
+  transform: translateX(0);
+}
+
+#title:focus {
+  outline: none;
+}
+
+
+.number-con p {
+  @apply flex justify-between py-2
+}
+
+.number-of-jobs p {
+  @apply flex justify-between py-2
+}
+
+.home-con > .con {
+  @apply bg-gray-200 rounded-2xl
+}
+
+.con {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.jobs::-webkit-scrollbar {
+  display: none;
 }
