@@ -7,7 +7,7 @@ const NumberOfJobs = () => {
     const jobsContext = useContext(JobContext)
     console.log(jobsContext)
     return (
-        <div className="number-of-jobs  text-[20px] lg:text-2xl px-5 lg:px-20 py-10 bg-accent text-white rounded-2xl">
+        <div className="number-of-jobs con  text-[20px] lg:text-2xl px-5 lg:px-20 py-10 rounded-2xl">
             <p className="number-of-jobs-title">Total Jobs <span>{jobsContext.data.count}</span></p>
             <hr className="w-full my-5" />
             <p className="number-of-pending">Pending <span>{
