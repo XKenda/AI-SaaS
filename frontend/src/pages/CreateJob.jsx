@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addJob } from "../../API/jobApi";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { Briefcase, Building, MapPin, Send, AlertCircle, Clock, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { JobContext } from "../App";
 
 const CreateJob = () => {
     const navigate = useNavigate();
@@ -17,6 +18,8 @@ const CreateJob = () => {
         status: "pending",
         location: ""
     });
+
+    const jobs = useContext(JobContext)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,6 +36,8 @@ const CreateJob = () => {
             const res = await addJob(formData);
             if (res.data.success) {
                 navigate("/home");
+                jobs.getAllJobs()
+                
             } else {
                 setError(res.data.message || "Failed to add job application.");
             }

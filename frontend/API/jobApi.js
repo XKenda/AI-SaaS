@@ -6,7 +6,7 @@ export const getJobs = (query = "a-z") => {
 }
 
 export const addJob = (data) => {
-    return api.post('/job/')
+    return api.post('/job/', data)
 }
 
 export const updateJob = (jobId, updates) => {

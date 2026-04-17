@@ -19,7 +19,6 @@
   color: #f8fafc;
 }
 
-/* Glassmorphism Utilities */
 .glass {
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
@@ -42,7 +41,6 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -87,4 +85,21 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+}
+
+
+.jobs-btns-con {
+  display: none;
+  cursor: pointer;
+}
+
+.group:hover .jobs-btns-con {
+  display: flex;
+}
+
+.job-btn {
+  background-color: #0f172a;
+  padding: 4px;
+  border-radius: 5px;
+  color: #6366f1;
 }
