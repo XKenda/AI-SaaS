@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar, Trash, Edit } from "lucide-react";
+import { useContext } from "react";
+import { JobContext } from "../App";
 
 
 const Job = ({ job, index }) => {
+    const {deleteJob} = useContext(JobContext)
+
+    const HandleDeleteJob = () => {
+        deleteJob(job._id)
+    }
 
     return (
         <motion.div
@@ -38,7 +45,7 @@ const Job = ({ job, index }) => {
                 </div>
             </div>
             <div className="absolute jobs-btns-con right-5 flex flex-col gap-3">
-                <button className="job-btn">
+                <button className="job-btn" onClick={HandleDeleteJob}>
                     <Trash />
                 </button>
                 <button className="job-btn">

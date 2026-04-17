@@ -27,6 +27,14 @@ function App() {
         })
   })
 
+  const deleteJob = useCallback(async(id)=>{
+    await deleteJob(id).then((res)=>{
+      if(res.data.success) setData((prev)=> prev.filter((job)=> job._id !== id))
+    }).catch((err)=>{
+      console.log(err)
+    })
+  })
+
 
   useEffect(()=>{
     async function HandleGetUSer() {
@@ -47,7 +55,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{user, setUser}}>
-      <JobContext.Provider value={{data, setData, getAllJobs}}>
+      <JobContext.Provider value={{data, setData, getAllJobs, deleteJob,}}>
         <Router>
           <Routes>
             <Route path="/home" element={<Home />} />
