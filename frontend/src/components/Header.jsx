@@ -7,8 +7,8 @@ import { Plus, User, LogOut } from "lucide-react";
 const Header = () => {
     const navigate = useNavigate();
     const titleInputRef = useRef(null);
-    const user = useContext(UserContext); // Fixed: useContext(UserContext) instead of useContext({...UserContext})
-    console.log(user)
+    const user = useContext(UserContext); 
+
     if (!user) return null;
 
     const { profileImgUrl, username, title } = user.user;
