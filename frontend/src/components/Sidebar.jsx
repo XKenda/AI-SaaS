@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { logout } from "../../API/userApi";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -83,7 +84,9 @@ const Sidebar = () => {
       </nav>
 
       <div className="pt-6 border-t border-white/10">
-        <button className="flex items-center gap-4 p-3 w-full rounded-2xl text-gray-400 hover:bg-red-500/10 hover:text-red-400 transition-all">
+        <button className="flex items-center gap-4 p-3 w-full rounded-2xl text-gray-400 hover:bg-red-500/10 hover:text-red-400 transition-all"
+          onClick={() => logout()}
+        >
           <div className="min-w-[32px] flex justify-center">
             <LogOut size={20} />
           </div>
