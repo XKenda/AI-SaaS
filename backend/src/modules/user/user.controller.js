@@ -6,7 +6,7 @@ import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
     try {
-        let fileUrl;
+        let result
         const file = req.file
         const {username,
                 email,
@@ -17,20 +17,22 @@ export const registerController = async (req, res, next) => {
 
 
         if(file) {
-            fileUrl = await uploadImageToCloudinary(file);
+            result = await uploadImageToCloudinary(file);
         }
         const emailIsExist = await getUser(email);
 
         if(emailIsExist) return res.status(404).json({success: false, message: "email is already taken"})
         const hashedPassword = await bcrypt.hash(password, 8)
-        const created = await createNewUser({ fileUrl, 
+        const created = await createNewUser({ 
                                         username, 
                                         email, 
                                         age, 
                                         password: hashedPassword, 
                                         title, 
-                                        employed})
-        if(created) return res.status(200).json({success: true})
+                                        employed}, result)
+        if(created) {
+            return res.status(200).json({success: true})
+        }
         
         res.status(404).json({success: false})
     } catch (e) {

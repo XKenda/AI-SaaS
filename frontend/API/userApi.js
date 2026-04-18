@@ -15,3 +15,7 @@ export const getUser = () => {
 export const updateUser = (update) => {
     return api.patch('/user/update', update)
 }
+
+export const logout = () => {
+    return api.delete('/user/logout')
+}

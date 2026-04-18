@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs"
 import Token from "./token.model.js"
 import User from "./user.model.js"
 import { abortTransaction, commitTransaction, startTransaction } from "../../utils/session.js"
+import Upload from "../../shared/upload.model.js"
 
 
 export const getUser = async (email) => {
@@ -27,15 +28,23 @@ export const addTokenToDB = async (refreshToken, userId) =>{
     }
 }
 
-export const createNewUser = async({fileUrl, username, email, age, password, title, employed}) => {
+export const createNewUser = async({username, email, age, password, title, employed}, result) => {
+    const session = startTransaction()
     try {
-        const user = await User.create({profileImgUrl: fileUrl, username, email, age, password, title, employed})
+        const user = await User.create({profileImgUrl: result.secure_url, username, email, age, password, title, employed}, {session})
 
-        if(user) return true
+        const data = await Upload.create({userId: user._id, url: result.secure_url, publicId: result.public_id}, {session})
 
+        if(data) {
+            await commitTransaction(session)
+            return user
+        }
+
+        await abortTransaction(session)
         return false
     } catch (e) {
-        throw new Error(e.message)
+        await abortTransaction(session)
+        throw e
     }
 }
 
