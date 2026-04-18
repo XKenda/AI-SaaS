@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar, Trash, Edit } from "lucide-react";
 import { useContext } from "react";
 import { JobContext } from "../App";
+import { Link } from "react-router-dom";
 
 
 const Job = ({ job, index }) => {
@@ -48,9 +49,11 @@ const Job = ({ job, index }) => {
                 <button className="job-btn" onClick={HandleDeleteJob}>
                     <Trash />
                 </button>
-                <button className="job-btn">
-                    <Edit />
-                </button>
+                <Link to={`/edit/job/${job._id}`}>
+                    <button className="job-btn">
+                        <Edit />
+                    </button>
+                </Link>
             </div>
         </motion.div>
     );

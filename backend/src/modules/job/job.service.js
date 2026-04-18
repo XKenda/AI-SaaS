@@ -38,6 +38,15 @@ export const getAllJobService = async (userId, query) => {
     }
 }
 
+export const getJobService = async (userId, jobId) => {
+    try {
+        const job = await Job.findOne({_id: jobId, userId})
+        return job
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
+
 export const updateJobService = async (userId, jobId, update) => {
     try {
         const job = await Job.findOneAndUpdate({_id: jobId, userId}, update, {new: true})
