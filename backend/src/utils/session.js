@@ -8,10 +8,10 @@ export const startTransaction = async () => {
 
 export const commitTransaction = async (session) => {
     await session.commitTransaction();
-    session.endSession
+    await session.endSession();
 }
 
 export const abortTransaction = async (session) => {
     await session.abortTransaction();
-    session.endSession();
+    await session.endSession();
 }

@@ -28,12 +28,22 @@ const cvSchema = new mongoose.Schema({
         default: []
     },
     weaknesses: {
-        type: String,
-        default: "",
+        type: [
+            {
+                type: String, 
+                required: true
+            }
+        ],
+        default: []
     },
-    improvenesses: {
-        type: String,
-        default: "",
+    improvements: {
+        type: [
+            {
+                type: String, 
+                required: true
+            }
+        ],
+        default: []
     },
     
 })

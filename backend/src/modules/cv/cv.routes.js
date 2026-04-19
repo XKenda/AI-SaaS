@@ -1,5 +1,5 @@
 import express from "express"
-import { deleteCVController, getAllCVsController, updateCVController, uploadCVController } from "./cv.controller.js"
+import { deleteCVController, getAllCVsController, uploadCVController } from "./cv.controller.js"
 import { auth } from "../../middlewares/auth.middleware.js"
 import multer from "multer"
 
@@ -10,8 +10,6 @@ const cvRouter = express.Router()
 cvRouter.post("/upload", auth, update.single("cv"), uploadCVController)
 
 cvRouter.get('/', auth, getAllCVsController)
-
-cvRouter.patch('/update/:id', auth, update.single("cv"), updateCVController)
 
 cvRouter.delete('/:id', auth, deleteCVController)
 
