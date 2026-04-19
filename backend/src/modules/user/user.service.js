@@ -33,7 +33,7 @@ export const createNewUser = async({username, email, age, password, title, emplo
     try {
         const user = await User.create({profileImgUrl: result.secure_url, username, email, age, password, title, employed}, {session})
 
-        const data = await Upload.create({userId: user._id, url: result.secure_url, publicId: result.public_id}, {session})
+        const data = await Upload.create({userId: user._id, url: result.secure_url, publicId: result.public_id, fileType: "image"}, {session})
 
         if(data) {
             await commitTransaction(session)
