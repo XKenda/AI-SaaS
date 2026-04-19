@@ -6,7 +6,7 @@ import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
     try {
-        let result
+        let result = "";
         const file = req.file
         const {username,
                 email,
