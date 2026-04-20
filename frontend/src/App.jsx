@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -10,13 +10,15 @@ import { getUser } from "../API/userApi"
 import { deleteJobAPI, getJobs, updateJobAPI } from "../API/jobApi"
 import CreateJob from "./pages/CreateJob"
 import EditJob from "./pages/EditJob"
+import Resume from "./pages/Resume"
 
 export const UserContext = createContext(null)
 export const JobContext = createContext(null)
 
 function App() {
-  const [user , setUser] = useState({})
+  const [user , setUser] = useState({});
   const [data, setData] = useState({});
+  const navigator = useNavigate();
 
 
   const getAllJobs = useCallback( async ()=>{
@@ -49,7 +51,7 @@ function App() {
           if(res.data.success) setUser(res.data.data)
 
         }).catch((err)=>{
-          console.log(err)
+          if(err.status) navigator("/auth/login")
         })
 
         await getAllJobs()
@@ -62,19 +64,19 @@ function App() {
   return (
     <UserContext.Provider value={{user, setUser}}>
       <JobContext.Provider value={{data, setData, getAllJobs, deleteJob, updateJob}}>
-        <Router>
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/create/job" element={<CreateJob />} />
             <Route path="/not-feature" element={<NotFeature />} />
             <Route path="/edit/job/:id" element={<EditJob />} />
+            <Route path="/resume" element={<Resume />} />
             <Route path="/auth">
               <Route path="register" element={<Register />}  />
               <Route path="login" element={<Login />} />
             </Route>
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
-        </Router>
+
       </JobContext.Provider>
     </UserContext.Provider>
   )

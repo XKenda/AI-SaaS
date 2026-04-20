@@ -36,7 +36,7 @@ export const getAllCVsService = async (userId) => {
 }
 
 export const deleteCVService = async (userId, cvId) => {
-    const session = startTransaction();
+    const session = await startTransaction();
     try {
         const cv = await CV.findOne({ _id: cvId, userId })
         if (!cv) return false
