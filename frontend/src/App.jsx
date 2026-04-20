@@ -10,6 +10,7 @@ import { getUser } from "../API/userApi"
 import { deleteJobAPI, getJobs, updateJobAPI } from "../API/jobApi"
 import CreateJob from "./pages/CreateJob"
 import EditJob from "./pages/EditJob"
+import Resume from "./pages/Resume"
 
 export const UserContext = createContext(null)
 export const JobContext = createContext(null)
@@ -68,6 +69,7 @@ function App() {
             <Route path="/create/job" element={<CreateJob />} />
             <Route path="/not-feature" element={<NotFeature />} />
             <Route path="/edit/job/:id" element={<EditJob />} />
+            <Route path="/resume" element={<Resume />} />
             <Route path="/auth">
               <Route path="register" element={<Register />}  />
               <Route path="login" element={<Login />} />

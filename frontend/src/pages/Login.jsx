@@ -43,7 +43,7 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="glass rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row max-w-5xl w-full shadow-2xl"
             >
-                {/* Info Section */}
+
                 <div className="md:w-5/12 bg-accent/10 p-12 flex flex-col justify-between relative overflow-hidden">
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl" />
@@ -69,7 +69,7 @@ const Login = () => {
                     </div>
                 </div>
 
-                {/* Form Section */}
+
                 <div className="md:w-7/12 p-12 flex flex-col justify-center">
                     <div className="mb-10">
                         <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>

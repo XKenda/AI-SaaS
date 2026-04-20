@@ -117,7 +117,7 @@ const Register = () => {
                     </div>
                 </div>
 
-                {/* Form Section */}
+     
                 <div className="lg:w-8/12 p-8 md:p-12">
                     <div className="mb-10 text-center lg:text-left">
                         <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
@@ -287,4 +287,4 @@ const Register = () => {
     );
 }
 
-export default Register;
+export default Register;
