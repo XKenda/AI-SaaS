@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight, FileUser } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { logout } from "../../API/userApi";
@@ -10,6 +10,7 @@ const Sidebar = () => {
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/home" },
     { icon: Briefcase, label: "All Jobs", path: "/home" },
+    { icon: FileUser, label: "Resume", path: "/resume"},
     { icon: User, label: "Profile", path: "/not-feature" },
     { icon: Settings, label: "Settings", path: "/not-feature" },
   ];

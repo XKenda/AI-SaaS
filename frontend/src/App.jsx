@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -15,8 +15,9 @@ export const UserContext = createContext(null)
 export const JobContext = createContext(null)
 
 function App() {
-  const [user , setUser] = useState({})
+  const [user , setUser] = useState({});
   const [data, setData] = useState({});
+  const navigator = useNavigate();
 
 
   const getAllJobs = useCallback( async ()=>{
@@ -49,7 +50,7 @@ function App() {
           if(res.data.success) setUser(res.data.data)
 
         }).catch((err)=>{
-          console.log(err)
+          if(err.status) navigator("/auth/login")
         })
 
         await getAllJobs()
@@ -62,7 +63,6 @@ function App() {
   return (
     <UserContext.Provider value={{user, setUser}}>
       <JobContext.Provider value={{data, setData, getAllJobs, deleteJob, updateJob}}>
-        <Router>
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/create/job" element={<CreateJob />} />
@@ -74,7 +74,7 @@ function App() {
             </Route>
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
-        </Router>
+
       </JobContext.Provider>
     </UserContext.Provider>
   )
