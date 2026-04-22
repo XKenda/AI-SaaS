@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from "react-router-dom"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -65,6 +65,7 @@ function App() {
     <UserContext.Provider value={{user, setUser}}>
       <JobContext.Provider value={{data, setData, getAllJobs, deleteJob, updateJob}}>
           <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/create/job" element={<CreateJob />} />
             <Route path="/not-feature" element={<NotFeature />} />
