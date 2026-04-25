@@ -16,7 +16,7 @@ export const auth = async (req, res, next) => {
             res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: true,
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 15
             });
             return res.status(401).send("Unauthorized");

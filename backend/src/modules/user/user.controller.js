@@ -59,7 +59,7 @@ export const logInController = async (req, res, next) => {
         res.cookie('refreshToken', token, {
             httpOnly: true,
             secure: true,
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 15
         })
         res.status(200).json({success: true})
@@ -81,7 +81,7 @@ export const logOutController = async (req, res, next) => {
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: true,
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 15
         })
         res.status(200).json({success: true})
