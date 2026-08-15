@@ -11,7 +11,7 @@ import cvRouter from './modules/cv/cv.routes.js';
 var app = express();
 
 app.use(cors({
-    origin: "*",
+    origin: "https://aisaas-front.vercel.app",
     credentials: true
 }))
 app.use(logger('dev'));

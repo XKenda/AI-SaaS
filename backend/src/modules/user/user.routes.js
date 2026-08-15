@@ -3,7 +3,12 @@ import { deleteUser, getUserController, logInController, logoutAllController, lo
 import multer from "multer";
 import { auth } from "../../middlewares/auth.middleware.js";
 
-const update = multer({dest: '/uploads'})
+const update = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5 MB
+    }
+})
 
 const userRouter = express.Router()
 
