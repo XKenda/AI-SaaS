@@ -7,3 +7,5 @@ const port = PORT || 3000
 app.listen(port, ()=>{
     console.log(`app listened on port ${port}`);
 })
+
+export default app;
