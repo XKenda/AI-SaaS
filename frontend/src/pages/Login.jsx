@@ -5,10 +5,13 @@ import Loading from "../components/loading";
 import { LogInAPI } from "../../API/userApi";
 import { motion } from "framer-motion";
 import { Briefcase, Mail, Lock, ArrowRight } from "lucide-react";
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 const Login = () => {
     const [passwordIsShown, setPasswordIsShown] = useState(false);
     const [isLoading, setIsloading] = useState(false);
+    const { HandleGetUSer } = useContext(UserContext)
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -24,7 +27,7 @@ const Login = () => {
             await LogInAPI(formData.email, formData.password).then((res) => {
                 if (res.data.success) {
                     navigate('/');
-                    window.location.reload()
+                    HandleGetUSer()
                 }
             }).catch((e) => {
                 console.log(e);

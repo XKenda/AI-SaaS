@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -16,74 +16,74 @@ export const UserContext = createContext(null)
 export const JobContext = createContext(null)
 
 function App() {
-  const [user , setUser] = useState({});
+  const [user, setUser] = useState({});
   const [data, setData] = useState({});
   const [logedIn, setLogedIn] = useState(false)
   const navigator = useNavigate();
 
 
-  const getAllJobs = useCallback( async ()=>{
-        await getJobs().then((res) => {
-          if(res.data.success) setData(res.data.data)
-            
-        }).catch((err) => {
-          console.log(err)
-        })
-  })
+  const getAllJobs = useCallback(async () => {
+    await getJobs().then((res) => {
+      if (res.data.success) setData(res.data.data)
 
-  const deleteJob = useCallback(async(id)=>{
-    await deleteJobAPI(id).then((res)=>{
-      console.log(res)
-      if(res.data.success) setData((prev)=> prev.filter((job)=> job._id !== id))
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err)
     })
   })
 
-  const updateJob = useCallback(async(id, update)=>{
-      setData((prev)=> prev.map((job)=> job._id === id ? update : job))
+  async function HandleGetUSer() {
+
+    await getUser().then((res) => {
+      if (res.data.success)
+        setUser(res.data.data)
+
+
+    }).catch((err) => {
+      if (err.status) navigator("/auth/login")
+    })
+
+    await getAllJobs()
+
+  }
+
+  const deleteJob = useCallback(async (id) => {
+    await deleteJobAPI(id).then((res) => {
+      console.log(res)
+      if (res.data.success) setData((prev) => prev.filter((job) => job._id !== id))
+    }).catch((err) => {
+      console.log(err)
+    })
   })
 
-  useEffect(()=>{
-    async function HandleGetUSer() {
+  const updateJob = useCallback(async (id, update) => {
+    setData((prev) => prev.map((job) => job._id === id ? update : job))
+  })
 
-        await getUser().then((res)=>{
-          if(res.data.success)
-            setUser(res.data.data)
- 
-
-        }).catch((err)=>{
-          if(err.status) navigator("/auth/login")
-        })
-
-        await getAllJobs()
-
-    }
-
+  useEffect(() => {
     HandleGetUSer()
   }, []);
 
-  useEffect(()=>{
-    if(Object.keys(user).length > 0) setLogedIn(true)
+  useEffect(() => {
+    if (Object.keys(user).length > 0) setLogedIn(true)
     else setLogedIn(false)
   }, [user])
 
   return (
-    <UserContext.Provider value={{user, setUser, logedIn}}>
-      <JobContext.Provider value={{data, setData, getAllJobs, deleteJob, updateJob}}>
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/create/job" element={<CreateJob />} />
-            <Route path="/not-feature" element={<NotFeature />} />
-            <Route path="/edit/job/:id" element={<EditJob />} />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/auth">
-              <Route path="register" element={<Register />}  />
-              <Route path="login" element={<Login />} />
-            </Route>
-            <Route path="/*" element={<PageNotFound />} />
-          </Routes>
+    <UserContext.Provider value={{ user, setUser, logedIn, HandleGetUSer }}>
+      <JobContext.Provider value={{ data, setData, getAllJobs, deleteJob, updateJob }}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/create/job" element={<CreateJob />} />
+          <Route path="/not-feature" element={<NotFeature />} />
+          <Route path="/edit/job/:id" element={<EditJob />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/auth">
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
 
       </JobContext.Provider>
     </UserContext.Provider>
