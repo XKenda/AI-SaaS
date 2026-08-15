@@ -22,8 +22,10 @@ const Login = () => {
 
         try {
             await LogInAPI(formData.email, formData.password).then((res) => {
-                if (res.data.success)
-                    navigate('/home');
+                if (res.data.success) {
+                    navigate('/');
+                    window.location.reload()
+                }
             }).catch((e) => {
                 console.log(e);
                 alert(e.response.data.message);
@@ -37,7 +39,7 @@ const Login = () => {
 
     return (
         <div className="auth-gradient min-h-screen flex items-center justify-center p-4 selection:bg-accent/30">
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -47,7 +49,7 @@ const Login = () => {
                 <div className="md:w-5/12 bg-accent/10 p-12 flex flex-col justify-between relative overflow-hidden">
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl" />
-                    
+
                     <div className="relative z-10">
                         <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-accent/20">
                             <Briefcase className="text-white" size={24} />
@@ -81,12 +83,12 @@ const Login = () => {
                             <label className="text-sm font-medium text-gray-400 ml-1">Email Address</label>
                             <div className="relative group">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent transition-colors" size={20} />
-                                <input 
-                                    type="email" 
+                                <input
+                                    type="email"
                                     required
                                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
                                     placeholder="name@company.com"
-                                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -95,14 +97,14 @@ const Login = () => {
                             <label className="text-sm font-medium text-gray-400 ml-1">Password</label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent transition-colors" size={20} />
-                                <input 
-                                    type={passwordIsShown ? "text" : "password"} 
+                                <input
+                                    type={passwordIsShown ? "text" : "password"}
                                     required
                                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-12 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
                                     placeholder="••••••••"
-                                    onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                                 />
-                                <button 
+                                <button
                                     type="button"
                                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
                                     onClick={() => setPasswordIsShown(prev => !prev)}
@@ -112,14 +114,14 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <button 
+                        <button
                             type="submit"
                             disabled={isLoading}
                             className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-4 rounded-2xl shadow-xl shadow-accent/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 group"
                         >
                             {isLoading ? <Loading /> : (
                                 <>
-                                    Log In 
+                                    Log In
                                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </>
                             )}
@@ -144,9 +146,9 @@ const Login = () => {
                     </div>
 
                     <p className="mt-8 text-center text-gray-500">
-                        Don't have an account? 
-                        <button 
-                            onClick={() => navigate('/auth/register')} 
+                        Don't have an account?
+                        <button
+                            onClick={() => navigate('/auth/register')}
                             className="ml-2 text-accent font-semibold hover:underline"
                         >
                             Register now

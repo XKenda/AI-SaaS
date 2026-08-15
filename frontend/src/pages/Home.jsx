@@ -8,6 +8,8 @@ import Loading from "../components/loading";
 import { Clock, CheckCircle, Users, Briefcase, MapPin, Calendar, LayoutDashboard, Trash, Edit } from "lucide-react";
 import { motion } from "framer-motion";
 import Job from "../components/Job";
+import { useEffect } from "react";
+
 
 const Home = () => {
     const { user } = useContext(UserContext);
@@ -50,6 +52,7 @@ const Home = () => {
             transition: { staggerChildren: 0.1 }
         }
     };
+
 
     return (
         <div className="dashboard-grid bg-primary text-white selection:bg-accent/30">

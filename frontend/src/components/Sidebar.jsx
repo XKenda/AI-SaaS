@@ -1,15 +1,19 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight, FileUser } from "lucide-react";
+import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight, FileUser, LogIn } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { logout } from "../../API/userApi";
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { logedIn } = useContext(UserContext);
+  
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", path: "/home" },
-    { icon: Briefcase, label: "All Jobs", path: "/home" },
+    { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+    { icon: Briefcase, label: "All Jobs", path: "/" },
     { icon: FileUser, label: "Resume", path: "/resume"},
     { icon: User, label: "Profile", path: "/not-feature" },
     { icon: Settings, label: "Settings", path: "/not-feature" },
@@ -85,8 +89,13 @@ const Sidebar = () => {
       </nav>
 
       <div className="pt-6 border-t border-white/10">
+      {
+        logedIn?
         <button className="flex items-center gap-4 p-3 w-full rounded-2xl text-gray-400 hover:bg-red-500/10 hover:text-red-400 transition-all"
-          onClick={() => logout()}
+        onClick={() => {
+          logout()
+          window.location.reload()
+        }}
         >
           <div className="min-w-[32px] flex justify-center">
             <LogOut size={20} />
@@ -94,17 +103,37 @@ const Sidebar = () => {
           <AnimatePresence>
             {isExpanded && (
               <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-                className="font-medium whitespace-nowrap overflow-hidden"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+              className="font-medium whitespace-nowrap overflow-hidden"
               >
                 Logout
               </motion.span>
             )}
           </AnimatePresence>
         </button>
+        :
+        <NavLink className="flex items-center gap-4 p-3 w-full rounded-2xl text-gray-400 hover:bg-white/5 hover:text-green-400" to="/auth/login">
+          <div className="min-w-[32px] flex justify-center">
+            <LogIn size={20} />
+          </div>
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+              className="font-medium whitespace-nowrap overflow-hidden"
+              >
+                Login
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </NavLink>
+      }
       </div>
     </motion.aside>
   );

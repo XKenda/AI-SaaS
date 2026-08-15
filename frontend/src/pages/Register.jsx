@@ -46,7 +46,7 @@ const Register = () => {
         try {
             await RegisterAPI(data).then((res) => {
                 if (res) {
-                    navigate('/login');
+                    navigate('/auth/login');
                 }
             }).catch((e) => {
                 setErrorMessage(e.response?.data?.message || "Registration failed");

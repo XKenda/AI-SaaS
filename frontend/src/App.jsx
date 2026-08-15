@@ -18,6 +18,7 @@ export const JobContext = createContext(null)
 function App() {
   const [user , setUser] = useState({});
   const [data, setData] = useState({});
+  const [logedIn, setLogedIn] = useState(false)
   const navigator = useNavigate();
 
 
@@ -43,12 +44,13 @@ function App() {
       setData((prev)=> prev.map((job)=> job._id === id ? update : job))
   })
 
-
   useEffect(()=>{
     async function HandleGetUSer() {
 
         await getUser().then((res)=>{
-          if(res.data.success) setUser(res.data.data)
+          if(res.data.success)
+            setUser(res.data.data)
+ 
 
         }).catch((err)=>{
           if(err.status) navigator("/auth/login")
@@ -61,8 +63,13 @@ function App() {
     HandleGetUSer()
   }, []);
 
+  useEffect(()=>{
+    if(Object.keys(user).length > 0) setLogedIn(true)
+    else setLogedIn(false)
+  }, [user])
+
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser, logedIn}}>
       <JobContext.Provider value={{data, setData, getAllJobs, deleteJob, updateJob}}>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />

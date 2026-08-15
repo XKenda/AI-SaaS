@@ -30,20 +30,18 @@ export const addTokenToDB = async (refreshToken, userId) => {
 }
 
 export const createNewUser = async ({ username, email, age, password, title, employed }, result = "") => {
-    const session = startTransaction()
+    const session = await startTransaction()
     try {
-        const user = await User.create({ profileImgUrl: result.secure_url, username, email, age, password, title, employed }, { session })
-        if(result) {
+        const user = await User.create([{ profileImgUrl: result.secure_url, username, email, age, password, title, employed }], { session })
+        if (result) {
             var data = await Upload.create({ userId: user._id, url: result.secure_url, publicId: result.public_id, fileType: "image" }, { session })
         }
 
-        if (data) {
-            await commitTransaction(session)
-            return user
-        }
 
-        await abortTransaction(session)
-        return false
+        await commitTransaction(session)
+        return user
+
+
     } catch (e) {
         await abortTransaction(session)
         throw e
@@ -107,14 +105,14 @@ export const deleteUserSevice = async (userId) => {
         const tokensDeleted = await Token.deleteMany({ userId }, { session })
         const uploadDeleted = await Upload.find({ userId })
 
-        if(uploadDeleted) {
-            for(const upload of uploadDeleted) {
+        if (uploadDeleted) {
+            for (const upload of uploadDeleted) {
                 await deleteFileFromCloudinary(upload.publicId);
             }
             await Upload.deleteMany({ userId }, { session })
         }
 
-        if(UserDeleted && tokensDeleted && uploadDeleted) {
+        if (UserDeleted && tokensDeleted && uploadDeleted) {
             await commitTransaction(session)
             return true
         }

@@ -1,40 +1,40 @@
-import bcrypt from "bcryptjs";
+import bcryptjs from "bcryptjs";
 import { createRefreshToken } from "../../utils/createaRefreshToken.js";
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary.js";
 import { addTokenToDB, changePasswordService, createNewUser, deleteAllTokens, deleteToken, deleteUserSevice, getUser, updateUserService } from "./user.service.js";
-import bcryptjs from "bcryptjs";
 
 export const registerController = async (req, res, next) => {
     try {
         let result = "";
         const file = req.file
-        const {username,
-                email,
-                age,
-                password,
-                title,
-                employed} = req.body
+        const { username,
+            email,
+            age,
+            password,
+            title,
+            employed } = req.body
 
 
-        if(file) {
+        if (file) {
             result = await uploadImageToCloudinary(file);
         }
         const emailIsExist = await getUser(email);
 
-        if(emailIsExist) return res.status(404).json({success: false, message: "email is already taken"})
-        const hashedPassword = await bcrypt.hash(password, 8)
-        const created = await createNewUser({ 
-                                        username, 
-                                        email, 
-                                        age, 
-                                        password: hashedPassword, 
-                                        title, 
-                                        employed}, result)
-        if(created) {
-            return res.status(200).json({success: true})
+        if (emailIsExist) return res.status(404).json({ success: false, message: "email is already taken" })
+        const hashedPassword = await bcryptjs.hash(password, 8)
+        const created = await createNewUser({
+            username,
+            email,
+            age,
+            password: hashedPassword,
+            title,
+            employed
+        }, result)
+        if (created) {
+            return res.status(200).json({ success: true })
         }
-        
-        res.status(404).json({success: false})
+
+        res.status(404).json({ success: false })
     } catch (e) {
         next(e)
     }
@@ -42,17 +42,17 @@ export const registerController = async (req, res, next) => {
 
 export const logInController = async (req, res, next) => {
     try {
-        const {email, password} = req.body
+        const { email, password } = req.body
 
         const user = await getUser(email)
 
-        if(!user) return res.status(404).json({message: 'Email not found'})
+        if (!user) return res.status(404).json({ message: 'Email not found' })
 
         const passwordIsMatch = await bcryptjs.compare(password, user.password)
 
-        if(!passwordIsMatch) return res.status(401).json({success:false, message: 'Email or password is incorrect'});
+        if (!passwordIsMatch) return res.status(401).json({ success: false, message: 'Email or password is incorrect' });
 
-        const token = createRefreshToken({userId : user._id})
+        const token = createRefreshToken({ userId: user._id })
 
         await addTokenToDB(token, user._id)
 
@@ -62,7 +62,7 @@ export const logInController = async (req, res, next) => {
             sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 15
         })
-        res.status(200).json({success: true})
+        res.status(200).json({ success: true })
     } catch (e) {
         next(e)
     }
@@ -74,17 +74,17 @@ export const logOutController = async (req, res, next) => {
 
         const deletedCount = await deleteToken(token)
 
-        if(!deletedCount) {
-            res.status(404).json({success: false})
+        if (!deletedCount) {
+            res.status(404).json({ success: false })
         }
-    
+
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 15
         })
-        res.status(200).json({success: true})
+        res.status(200).json({ success: true })
     } catch (e) {
         next(e)
     }
@@ -96,21 +96,21 @@ export const logoutAllController = async (req, res, next) => {
 
         const deleteded = deleteAllTokens(user._id)
 
-        if(deleteded)
-            res.status(404).json({success: false})
+        if (deleteded)
+            res.status(404).json({ success: false })
 
-        res.status(200).json({success: true})
+        res.status(200).json({ success: true })
     } catch (e) {
         next(e)
     }
 }
 
-export const getUserController = (req, res, next)=>{
+export const getUserController = (req, res, next) => {
     try {
-        
-        const  {profileImgUrl, username, email, age, employed, title} = req.user
 
-        res.status(200).json({success: true, data: {profileImgUrl, username, email, age, employed, title}})
+        const { profileImgUrl, username, email, age, employed, title } = req.user
+
+        res.status(200).json({ success: true, data: { profileImgUrl, username, email, age, employed, title } })
     } catch (e) {
         next(e)
     }
@@ -123,7 +123,7 @@ export const updateUserController = async (req, res, next) => {
 
         const newUser = await updateUserService(userId, updated)
 
-        res.status(200).json({success: true, data: newUser})
+        res.status(200).json({ success: true, data: newUser })
     } catch (e) {
         next(e)
     }
@@ -132,13 +132,13 @@ export const updateUserController = async (req, res, next) => {
 export const changePasswordController = async (req, res, next) => {
     try {
         const userId = req.user._id
-        const {oldPassword, newPassword} = req.body
+        const { oldPassword, newPassword } = req.body
 
         const passwordChanged = changePasswordService(userId, oldPassword, newPassword)
 
-        if(!passwordChanged) return res.status(404).json({success: false})
+        if (!passwordChanged) return res.status(404).json({ success: false })
 
-        res.status(200).json({success: true})
+        res.status(200).json({ success: true })
 
     } catch (e) {
         next(e)
@@ -151,9 +151,9 @@ export const deleteUser = async (req, res, next) => {
 
         const deleted = await deleteUserSevice(userId);
 
-        if(!deleted) return res.status(404).json({success: false});
+        if (!deleted) return res.status(404).json({ success: false });
 
-        res.status(200).json({success: true});
+        res.status(200).json({ success: true });
     } catch (e) {
         next(e);
     }
