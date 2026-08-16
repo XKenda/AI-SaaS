@@ -10,7 +10,7 @@ export const getJob = (jobId) => {
 }
 
 export const addJob = (data) => {
-    return api.post('/job/', data)
+    return api.post('/job', data)
 }
 
 export const updateJobAPI = (jobId, updates) => {
