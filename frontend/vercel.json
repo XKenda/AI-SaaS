@@ -1,8 +1,8 @@
 {
 "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/api/v1/:path*",
       "destination": "https://aisaas-backend.vercel.app/api/v1/:path*"
     },
     {
