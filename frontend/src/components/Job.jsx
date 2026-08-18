@@ -18,7 +18,7 @@ const Job = ({ job, index }) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 + (index * 0.1) }}
             key={job._id || index}
-            className="flex items-center justify-between p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group relative cursor-pointer"
+            className="flex items-center justify-between p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group relative "
         >
             <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
@@ -45,12 +45,12 @@ const Job = ({ job, index }) => {
                     {job.status}
                 </div>
             </div>
-            <div className="absolute jobs-btns-con right-5 flex flex-col gap-3">
-                <button className="job-btn" onClick={HandleDeleteJob}>
+            <div className="absolute jobs-btns-con right-5 flex items-center gap-5">
+                <button className="job-btn cursor-pointer" onClick={HandleDeleteJob}>
                     <Trash />
                 </button>
                 <Link to={`/edit/job/${job._id}`}>
-                    <button className="job-btn">
+                    <button className="job-btn cursor-pointer">
                         <Edit />
                     </button>
                 </Link>

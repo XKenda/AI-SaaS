@@ -50,9 +50,7 @@ export const updateJobController = async (req, res, next) => {
     try {
         const userId = req.user._id;
         const {id: jobId} = req.params
-        const update = req.body
-
-        console.log(jobId) 
+        const update = req.body 
         
         const job = await updateJobService(userId, jobId, update)
 

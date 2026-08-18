@@ -23,7 +23,7 @@ const Header = () => {
 
     return (
         <header className="glass mb-8 p-6 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 flex-col md:flex-row">
                 <div className="relative group">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-accent/20 group-hover:ring-accent/50 transition-all duration-300">
                         {profileImgUrl ? (
@@ -36,7 +36,7 @@ const Header = () => {
                     </div>
                 </div>
                 
-                <div className="space-y-1">
+                <div className="space-y-1 max-w-55 md:max-w-none">
                     <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent capitalize">
                         Welcome back, {username}!
                     </h2>

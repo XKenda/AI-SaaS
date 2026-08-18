@@ -9,9 +9,10 @@ export const uploadCVService = async (userId, result, aiResponse) => {
     const session = await startTransaction()
     try {
 
-
-        const cv = await CV.create([{ ...aiResponse, userId, cvUrl: result.secure_url }], { session })
-        const data = await Upload.create([{ userId, itemId: cv[0]._id, url: result.secure_url, publicId: result.public_id, fileType: "pdf" }], { session })
+        await CV.deleteMany({userId}, {session})
+        await Upload.deleteMany({userId}, {session})
+        const cv = await CV.create([{ ...aiResponse, userId, cvUrl: result.url }], { session })
+        const data = await Upload.create([{ userId, itemId: cv[0]._id, url: result.url, publicId: result.public_id, fileType: "pdf" }], { session })
 
         if (data) {
             await commitTransaction(session)

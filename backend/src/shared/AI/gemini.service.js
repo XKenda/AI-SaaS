@@ -1,12 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs"
+import { GEMINI_API_KEY } from "../../config/env.js";
 
-const ai = new GoogleGenAI  ({});
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 export const analyzeCV = async (cvFile) => {
   try {
-    const day = new Date()
-    const fileBuffer = fs.readFileSync(cvFile.path)
+    const day = new Date();
+    const fileBuffer = cvFile.buffer;
     const base64File = fileBuffer.toString("base64");
 
     const response = await ai.models.generateContent({

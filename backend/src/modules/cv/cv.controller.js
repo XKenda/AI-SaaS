@@ -10,8 +10,10 @@ export const uploadCVController = async (req, res, next) => {
 
         const aiResponse = await analyzeCV(cvFile)
         const result = await uploadImageToCloudinary(cvFile)
+        const splittedUrl = result.url.split("upload")
+        result.url = `${splittedUrl[0]}upload/fl_attachment${splittedUrl[1]}`
         const cv = await uploadCVService(userId, result, aiResponse)
-
+        
         if (!cv) return res.status(404).json({ success: false, message: "cann't upload cv" })
 
         res.status(201).json({ success: true, data: cv })

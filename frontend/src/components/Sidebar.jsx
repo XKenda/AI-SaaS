@@ -29,7 +29,7 @@ const Sidebar = () => {
       className="glass h-screen sticky top-0 flex flex-col p-4 overflow-hidden z-50 shadow-2xl"
     >
       <div className="flex items-center gap-4 mb-12 px-2 h-10">
-        <div className="min-w-[40px] h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/20">
+        <div className="min-w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/20">
           <Briefcase className="text-white" size={24} />
         </div>
         <AnimatePresence>
@@ -61,7 +61,7 @@ const Sidebar = () => {
             }
           >
             <div className="flex items-center gap-4">
-              <div className="min-w-[32px] flex justify-center">
+              <div className="min-w-8 flex justify-center">
                 <item.icon size={20} />
               </div>
               <AnimatePresence>
@@ -97,7 +97,7 @@ const Sidebar = () => {
           window.location.reload()
         }}
         >
-          <div className="min-w-[32px] flex justify-center">
+          <div className="min-w-8 flex justify-center">
             <LogOut size={20} />
           </div>
           <AnimatePresence>
@@ -116,7 +116,7 @@ const Sidebar = () => {
         </button>
         :
         <NavLink className="flex items-center gap-4 p-3 w-full rounded-2xl text-gray-400 hover:bg-white/5 hover:text-green-400" to="/auth/login">
-          <div className="min-w-[32px] flex justify-center">
+          <div className="min-w-8 flex justify-center">
             <LogIn size={20} />
           </div>
           <AnimatePresence>

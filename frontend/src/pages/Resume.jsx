@@ -78,7 +78,7 @@ const Resume = () => {
         try {
             const res = await uploadCVAPI(formData);
             if (res.data.success) {
-                setCv(res.data.data);
+                setCv(res.data.data[0]);
             }
         } catch (err) {
             console.error("Upload failed:", err);
@@ -163,7 +163,7 @@ const Resume = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="glass-card p-12 rounded-[2.5rem] flex flex-col items-center justify-center gap-8 min-h-[400px]"
+                                className="glass-card p-12 rounded-[2.5rem] flex flex-col items-center justify-center gap-8 min-h-100"
                             >
                                 <div className="relative">
                                     <div className="w-24 h-24 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
