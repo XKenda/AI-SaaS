@@ -1,4 +1,4 @@
-import { analyzeCV } from "../../shared/AI/gemini.service.js"
+import { analyzeCV, AtsCvCkecker } from "../../shared/AI/gemini.service.js"
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary.js"
 import { deleteCVService, getAllCVsService, uploadCVService } from "./cv.service.js"
 
@@ -50,3 +50,17 @@ export const deleteCVController = async (req, res, next) => {
         next(e)
     }
 }
+
+export const CvCkeckerController = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const JobDescription = req.body.jobDescription;
+        const cvFile = req.file;
+        if(!userId) return res.status(401).json({success: false, text: "unauthorizaed"})
+        const aiResponse = await AtsCvCkecker(cvFile, JobDescription)
+
+        return res.status(201).json({success: true, data: aiResponse})
+    } catch (e) {
+        next(e)
+    }
+} 
