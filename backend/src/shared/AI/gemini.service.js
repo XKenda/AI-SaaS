@@ -46,3 +46,45 @@ export const analyzeCV = async (cvFile) => {
   }
 };
 
+export const AtsCvCkecker = async(cvFile, JobDescription) => {
+  try {
+
+    
+    const day = new Date();
+    const fileBuffer = cvFile.buffer;
+    const base64File = fileBuffer.toString("base64");
+    
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents : [
+        {
+          role: "user",
+          parts: [
+            {
+              text : `Today is ${day} use ATS checker to check is the cv is suitable for this job or not ("${JobDescription}")
+              the response will be JSON and it has that form
+              {
+                "atsCehckerRate" : number (rate of 100),
+                "Weakness" : string[] (weakness points of the cv based on Job Description)
+                "needToImprove" : string[] (the points that needs to be improve to make the cv suiatbel for that Job)
+              }
+              `
+            }, {
+              inlineData : {
+                mimeType : "application/pdf",
+                data: base64File
+              }
+            }
+          ]
+        }
+      ],
+      config : {
+        responseMimeType : "application/json"
+      }
+    })
+
+    return JSON.parse(response.candidates[0].content.parts[0].text);
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}

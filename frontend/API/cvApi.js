@@ -8,6 +8,10 @@ export const uploadCVAPI = (formData) => {
     });
 };
 
+export const atsChecker = (formData) => {
+    return api.post('/cv/atschecker', formData)
+}
+
 export const getAllCVsAPI = () => {
     return api.get('/cv');
 };

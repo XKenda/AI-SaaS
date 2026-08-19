@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight, FileUser, LogIn } from "lucide-react";
+import { LayoutDashboard, Briefcase, User, Settings, LogOut, ChevronRight, FileUser, LogIn, FileCheck } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { logout } from "../../API/userApi";
@@ -15,6 +15,7 @@ const Sidebar = () => {
     { icon: LayoutDashboard, label: "Dashboard", path: "/" },
     { icon: Briefcase, label: "All Jobs", path: "/" },
     { icon: FileUser, label: "Resume", path: "/resume"},
+    { icon: FileCheck, label: "ATS Checker", path: "/ats-checker" },
     { icon: User, label: "Profile", path: "/not-feature" },
     { icon: Settings, label: "Settings", path: "/not-feature" },
   ];
