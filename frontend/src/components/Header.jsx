@@ -27,7 +27,7 @@ const Header = () => {
                 <div className="relative group">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-accent/20 group-hover:ring-accent/50 transition-all duration-300">
                         {profileImgUrl ? (
-                            <img src={profileImgUrl} alt={username} className="w-full h-full object-cover" />
+                            <img src={profileImgUrl} alt={username} className="w-full h-full object-covergit" />
                         ) : (
                             <div className="w-full h-full bg-secondary flex items-center justify-center text-accent">
                                 <User size={32} />
